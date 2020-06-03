@@ -15,12 +15,21 @@
  */
 package com.qaprosoft.carina.demo;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.nio.charset.StandardCharsets;
+
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.testng.annotations.Test;
 
 import com.qaprosoft.apitools.validation.JsonCompareKeywords;
 import com.qaprosoft.carina.core.foundation.AbstractTest;
 import com.qaprosoft.carina.core.foundation.api.http.HttpResponseStatusType;
+import com.qaprosoft.carina.core.foundation.report.ReportContext;
 import com.qaprosoft.carina.core.foundation.utils.ownership.MethodOwner;
 import com.qaprosoft.carina.core.foundation.utils.tag.Priority;
 import com.qaprosoft.carina.core.foundation.utils.tag.TestPriority;
@@ -58,12 +67,21 @@ public class APISampleTest extends AbstractTest {
 
     @Test(description = "JIRA#DEMO-0003")
     @MethodOwner(owner = "qpsdemo")
-    public void testGetUsers() {
+    public void testGetUsers() throws IOException {
         GetUserMethods getUsersMethods = new GetUserMethods();
         getUsersMethods.expectResponseStatus(HttpResponseStatusType.OK_200);
         getUsersMethods.callAPI();
         getUsersMethods.validateResponse(JSONCompareMode.STRICT, JsonCompareKeywords.ARRAY_CONTAINS.getKey());
         getUsersMethods.validateResponseAgainstJSONSchema("api/users/_get/rs.schema");
+        
+        try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("myFile.txt"), StandardCharsets.UTF_8))) {
+            writer.write("text to write");
+        } 
+        catch (IOException ex) {
+            // Handle me
+        } 
+        File file = new File("myFile.txt");
+        ReportContext.saveArtifact(file);
     }
 
     @Test(description = "JIRA#DEMO-0004")
