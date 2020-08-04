@@ -1,19 +1,21 @@
 package com.qaprosoft.carina.demo.utils;
 
-import com.qaprosoft.carina.core.foundation.webdriver.DriverHelper;
-import io.appium.java_client.AppiumDriver;
-import org.apache.log4j.Logger;
+import java.util.Set;
+
 import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.Set;
+import com.qaprosoft.carina.core.foundation.webdriver.DriverHelper;
+import com.qaprosoft.carina.core.foundation.webdriver.IDriverPool;
 
-import static com.qaprosoft.carina.core.foundation.utils.mobile.MobileUtils.getDriver;
+import io.appium.java_client.AppiumDriver;
 
-public class MobileContextUtils {
+public class MobileContextUtils implements IDriverPool {
 
-    private static final Logger LOGGER = Logger.getLogger(DriverHelper.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MobileContextUtils.class);
 
     private WebDriver getDriverSafe() {
         WebDriver driver = getDriver();
