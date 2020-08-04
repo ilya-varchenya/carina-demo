@@ -5,6 +5,8 @@
 	<parameter name="zafira_project" value="UNKNOWN"/>
 	<parameter name="jenkinsJobName" value="API-Demo-Test"/>
 	<parameter name="jenkinsJobType" value="api"/>
+	
+	<parameter name="jenkinsDefaultGitBranch" value="test_branch2"/>
 
 	<parameter name="jenkinsEnvironments" value="DEMO"/>
 	<parameter name="jenkinsSlackChannels" value="slack-test"/>
